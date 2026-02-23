@@ -4,7 +4,7 @@ import autoprefixer from "autoprefixer";
 export default defineConfig({
   build: {
     rollupOptions: {
-      input: ["scss/embernotes.scss"],
+      input: ["scss/ember-notes.scss"],
       output: {
         assetFileNames: ({ name }) => name,
       },
