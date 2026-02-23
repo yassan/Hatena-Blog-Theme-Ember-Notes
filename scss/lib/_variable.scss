@@ -1,30 +1,83 @@
-// Variables
+// =========================================================
+// Ember Notes - Variables
+// =========================================================
 
-// Font
-$font-family-base: 'Helvetica Neue', 'Helvetica', 'Arial', 'Hiragino Kaku Gothic Pro', 'Meiryo', 'MS PGothic';
-$font-family-monospace: 'Monaco', 'Consolas', 'Courier New', Courier, monospace, sans-serif;
+// Fonts
+$font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+  Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+$font-family-monospace: "Monaco", "Consolas", "Courier New", Courier, monospace, sans-serif;
 
-// Background color
-$background: #fff;
-$bg-light: #f5f5f5;
+// Palette (based on provided image)
+$color-primary: #0075a8;   // Primary
+$color-secondary: #34495e; // Secondary
+$color-light-grey: #ecf0f1;
+$color-mid-grey: #99a3a8;
+$color-dark-grey: #3d3d3d;
+$color-black: #313131;
 
-// text color
-$text: #454545;
-$text-light: #999;
-$text-header: #333;
+$color-info: #78c9cf;
+$color-success: #27ae5f;
+$color-warning: #f1c40f;
+$color-error: #f15354;
+$color-disabled: #dee1e3;
 
-// link
-$link: #1487bd;
-$hover: darken($link, 10%);
+// Light theme tokens
+$background: #f7f9fa;
+$surface: #ffffff;
+$surface-2: #ecf0f1;
+$surface-3: #dee1e3;
 
-// border
-$border: #ddd;
+$text: #313131;
+$text-light: #5f6c74;
+$text-subtle: #99a3a8;
+$text-header: #313131;
 
-// button
-$btn: #fff;
-$btn-hover: #f5f5f5;
+$link: $color-primary;
+$hover: darken($link, 8%);
+$link-visited: #4b5f97;
 
-// Media Queries
+$border: #dee1e3;
+$border-strong: #cfd6da;
+$divider: #e9edf0;
+
+// Buttons / inputs
+$btn: $surface;
+$btn-hover: $surface-2;
+
+// Layout
+$container-sm: 720px;
+$container-md: 1000px;
+$container-lg: 1240px;
+
+$layout-gap-sm: 20px;
+$layout-gap-md: 24px;
+
+// 72 / 28 target (content-first)
+$main-sm: 500px; // 720 - 200 - gap(20) ≒ 500
+$side-sm: 200px;
+
+$main-md: 700px; // 1000 - 276 - gap(24) ≒ 700
+$side-md: 276px;
+
+$main-lg: 892px; // 1240 - 324 - gap(24) ≒ 892
+$side-lg: 324px;
+
+// Spacing
+$sp-1: 4px;
+$sp-2: 8px;
+$sp-3: 12px;
+$sp-4: 16px;
+$sp-5: 20px;
+$sp-6: 24px;
+$sp-8: 32px;
+$sp-10: 40px;
+$sp-12: 48px;
+
+// Radius
+$radius-sm: 8px;
+$radius-md: 12px;
+
+// Media Queries (Boilerplate style)
 $mq-xs: "(max-width: 480px)";
 $mq-sm: "(min-width: 768px)";
 $mq-md: "(min-width: 992px)";
