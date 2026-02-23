@@ -1,99 +1,444 @@
 // =========================================================
-// Ember Notes v1.1 - Font normalization patch
+// Ember Notes - Core
+// Responsibility:
+// - Base layout skeleton
+// - 2-column responsive layout with >=70% content width on desktop
+// - Base typography and module styling
+// - Font normalization (safe)
+// NOTE:
+// - Header overlay styles are in _header.scss
+// - Article content UI is in _components.scss
 // =========================================================
 
-/* 1) ルートで基本フォントを固定 */
 html,
 body {
+  margin: 0;
+  padding: 0;
+  background: $background;
+  color: $text;
   font-family: $font-family-base;
+  line-height: 1.7;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
 }
 
-/* 2) はてなで混在しやすい主要領域に inherit を通す
-   ※ icon フォントを壊しにくいように、まずはブログ領域に限定 */
-#container,
-#container *,
-#content,
-#content *,
-#wrapper,
-#wrapper *,
-#box2,
-#box2 *,
-.entry,
-.entry *,
-.archive-entry,
-.archive-entry * {
-  font-family: inherit;
+a { color: $link; }
+a:hover { color: $hover; }
+a:visited { color: $link-visited; }
+
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
 }
 
-/* 3) 主要領域は base フォントを再指定（inherit の起点を安定化） */
-#container,
-#content,
-#wrapper,
-#box2,
-.entry-content,
-.entry-header,
-.entry-footer,
-.hatena-module,
-.archive-entry-body,
-.archive-entry .entry-description,
-#title,
+/* ---------------------------------------------------------
+   Container / wrapper
+--------------------------------------------------------- */
+#container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: $background;
+  color: $text;
+}
+
+/* Boilerplate系の wrapper を想定 */
+#wrapper {
+  width: 100%;
+  max-width: $container-lg;
+  margin: 0 auto;
+  padding: 0 $sp-4 $sp-10;
+  box-sizing: border-box;
+
+  @media #{$mq-md} {
+    padding-left: $sp-6;
+    padding-right: $sp-6;
+  }
+}
+
+/* ---------------------------------------------------------
+   Hatena header baseline (safe; details in _header.scss)
+   Official DOM:
+   header#blog-title > #blog-title-inner > #blog-title-content > (h1#title, h2#blog-description)
+--------------------------------------------------------- */
+header#blog-title {
+  margin: 0 0 $sp-6;
+}
+
+header#blog-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* タイトル/説明の素の見え方（画像無し時の保険） */
+h1#title {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.25;
+  color: $text-header;
+
+  @media #{$mq-md} {
+    font-size: 1.9rem;
+  }
+}
+
+h2#blog-description,
 #blog-description {
-  font-family: $font-family-base;
+  margin: $sp-2 0 0;
+  color: $text-light;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
-/* 4) 主要テキスト要素を明示統一 */
+/* ---------------------------------------------------------
+   Main content area
+--------------------------------------------------------- */
+#content {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Mobile-first: single column */
+#content-inner {
+  display: block;
+}
+
+#main {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+#box2 {
+  width: 100%;
+  margin: $sp-8 0 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------
+   Desktop / tablet: 2 columns
+   CRITICAL:
+   - Some Hatena themes may place header inside #content-inner.
+   - Use wrap and force header to occupy full row.
+--------------------------------------------------------- */
+@media #{$mq-sm} {
+  #content-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: $layout-gap-sm;
+  }
+
+  /* Ensure header stays on the first full row if it is inside #content-inner */
+  #content-inner > header#blog-title {
+    flex: 0 0 100%;
+    width: 100%;
+    order: 0;
+    margin: 0 0 $sp-6;
+  }
+
+  #main {
+    order: 1;
+    flex: 1 1 0;
+    min-width: 0;
+    margin-top: 0;
+  }
+
+  #box2 {
+    order: 2;
+    flex: 0 0 $sidebar-min;
+    width: $sidebar-min;
+    margin-top: 0;
+  }
+}
+
+/* >=992px: guarantee main >=70% */
+@media #{$mq-md} {
+  #content-inner {
+    gap: $layout-gap-md;
+  }
+
+  #main {
+    flex: 0 1 calc(72% - (#{$layout-gap-md} / 2));
+    min-width: 0;
+  }
+
+  #box2 {
+    flex: 0 0 calc(28% - (#{$layout-gap-md} / 2));
+    width: auto;
+    min-width: $sidebar-min;
+    max-width: $sidebar-max;
+  }
+}
+
+@media #{$mq-lg} {
+  /* keep comfortable */
+  #wrapper { max-width: $container-lg; }
+}
+
+/* ---------------------------------------------------------
+   Entries
+--------------------------------------------------------- */
+.entry,
+.archive-entry {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  margin: 0 0 $sp-6;
+  padding: $sp-5;
+  box-sizing: border-box;
+
+  @media #{$mq-md} {
+    padding: 28px 32px; // docs寄りに少し締める
+    border-radius: 10px;
+  }
+}
+
+.entry-header,
+.archive-entry-header {
+  margin-bottom: $sp-4;
+
+  @media #{$mq-md} {
+    margin-bottom: 14px;
+  }
+}
+
 .entry-title,
-.archive-entry-title,
-.entry-content h1,
-.entry-content h2,
-.entry-content h3,
-.entry-content h4,
-.entry-content h5,
-.entry-content h6,
-.entry-content p,
-.entry-content li,
-.entry-content dt,
-.entry-content dd,
-.entry-content th,
-.entry-content td,
-.entry-content blockquote,
+.archive-entry-title {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.35;
+  color: $text-header;
+  font-weight: 700;
+
+  @media #{$mq-md} {
+    font-size: 1.7rem;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: $hover;
+    text-decoration: underline;
+    text-underline-offset: 0.14em;
+  }
+}
+
 .date,
 .categories,
 .breadcrumb,
-.hatena-module-title,
-.hatena-module-body,
-.hatena-module-body p,
-.hatena-module-body li,
-.hatena-module-body a {
-  font-family: $font-family-base;
+.entry-meta,
+.entry-header-meta {
+  color: $text-light;
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
-/* 5) フォーム要素のブラウザ既定フォント混在を抑止 */
+.date a,
+.categories a,
+.breadcrumb a,
+.entry-meta a,
+.entry-header-meta a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.date a:hover,
+.categories a:hover,
+.breadcrumb a:hover,
+.entry-meta a:hover,
+.entry-header-meta a:hover {
+  color: $hover;
+  text-decoration: underline;
+}
+
+/* ---------------------------------------------------------
+   Entry content base (detail in _components.scss)
+--------------------------------------------------------- */
+.entry-content {
+  color: $text;
+  font-size: 1rem;
+  line-height: 1.9;
+  word-break: normal;
+  overflow-wrap: break-word;
+
+  @media #{$mq-md} {
+    line-height: 1.82;
+  }
+}
+
+.entry-content p {
+  margin: 0 0 1.05em;
+
+  @media #{$mq-md} {
+    margin-bottom: 0.9em;
+  }
+}
+
+/* ---------------------------------------------------------
+   Sidebar modules
+--------------------------------------------------------- */
+.hatena-module {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  margin: 0 0 $sp-5;
+  overflow: hidden;
+
+  @media #{$mq-md} {
+    border-radius: 10px;
+  }
+}
+
+.hatena-module-title {
+  margin: 0;
+  padding: $sp-4 $sp-4 $sp-3;
+  color: $text-header;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-bottom: 1px solid $divider;
+  background: rgba($surface-2, 0.55);
+}
+
+.hatena-module-body {
+  padding: $sp-4;
+  color: $text;
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.hatena-module-body a {
+  color: $link;
+  text-decoration: none;
+}
+
+.hatena-module-body a:hover {
+  color: $hover;
+  text-decoration: underline;
+}
+
+/* ---------------------------------------------------------
+   Forms
+--------------------------------------------------------- */
 input,
 button,
 select,
 textarea {
   font: inherit;
   font-family: $font-family-base;
+  color: inherit;
 }
 
-/* 6) code/pre は等幅を維持（上のルールを戻す） */
+input[type="text"],
+input[type="search"],
+textarea,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid $border;
+  border-radius: 10px;
+  background: $surface;
+  padding: 0.55em 0.7em;
+}
+
+button,
+input[type="submit"] {
+  border: 1px solid $border;
+  border-radius: 10px;
+  background: $btn;
+  padding: 0.5em 0.8em;
+  cursor: pointer;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  background: $btn-hover;
+}
+
+/* ---------------------------------------------------------
+   Entry footer
+--------------------------------------------------------- */
+.entry-footer {
+  margin-top: $sp-5;
+  padding-top: $sp-4;
+  border-top: 1px solid $divider;
+  color: $text-light;
+  font-size: 0.92rem;
+}
+
+/* ---------------------------------------------------------
+   Mobile refinements
+--------------------------------------------------------- */
+@media (max-width: 767px) {
+  #wrapper {
+    padding-left: $sp-3;
+    padding-right: $sp-3;
+    padding-bottom: $sp-8;
+  }
+
+  #box2 {
+    margin-top: $sp-6;
+  }
+
+  .entry,
+  .archive-entry {
+    border-radius: 10px;
+    padding: $sp-4;
+    margin-bottom: $sp-4;
+  }
+
+  .entry-title,
+  .archive-entry-title {
+    font-size: 1.2rem;
+  }
+
+  .entry-content {
+    font-size: 0.98rem;
+    line-height: 1.85;
+  }
+
+  .entry-content p {
+    margin-bottom: 0.95em;
+  }
+}
+
+/* ---------------------------------------------------------
+   Font normalization patch (safe)
+--------------------------------------------------------- */
+#container,
+#wrapper,
+#content,
+#content-inner,
+#main,
+#box2,
+.entry,
+.archive-entry,
+.entry-content,
+.entry-header,
+.entry-footer,
+.hatena-module,
+.archive-entry-body,
+.archive-entry .entry-description,
+header#blog-title,
+#blog-title-inner,
+#blog-title-content,
+h1#title,
+#blog-description {
+  font-family: $font-family-base;
+}
+
+/* Keep monospaced font for code */
 code,
 pre,
 kbd,
-samp {
-  font-family: $font-family-monospace !important;
-}
-
+samp,
 pre code {
   font-family: $font-family-monospace !important;
-}
-
-/* 7) small/time/label/span 由来の部分的な混在を抑える */
-small,
-time,
-label,
-.entry-content span,
-.hatena-module span {
-  font-family: inherit;
 }

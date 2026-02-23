@@ -1,0 +1,263 @@
+// =========================================================
+// Ember Notes - Components
+// Scope: article content only (.entry-content)
+// NOTE: Do NOT style Hatena header (header#blog-title / h1#title) here.
+// =========================================================
+
+.entry-content {
+  a {
+    color: $link;
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.16em;
+    text-decoration-color: rgba($link, 0.4);
+    transition: color .15s ease, text-decoration-color .15s ease, background-color .15s ease;
+
+    &:hover {
+      color: $hover;
+      text-decoration-color: currentColor;
+    }
+
+    &:focus-visible {
+      outline: 3px solid rgba($color-info, 0.45);
+      outline-offset: 2px;
+      border-radius: 4px;
+      background: rgba($color-info, 0.10);
+    }
+
+    &:visited {
+      color: $link-visited;
+    }
+  }
+
+  h2,
+  h3 {
+    color: $text-header;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+  }
+
+  h2 {
+    position: relative;
+    margin: 2.2em 0 .9em;
+    padding: .15em 0 .5em .7em;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-bottom: 1px solid $border;
+    background: linear-gradient(
+      to right,
+      rgba($color-info, 0.12) 0,
+      rgba($color-info, 0.12) 10px,
+      transparent 10px
+    );
+    border-radius: 4px 4px 0 0;
+
+    @media #{$mq-md} {
+      font-size: 1.5rem;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .25em;
+      bottom: .45em;
+      width: 4px;
+      border-radius: 999px;
+      background: $color-info;
+    }
+
+    &::after {
+      content: none !important;
+    }
+  }
+
+  h3 {
+    margin: 1.65em 0 .7em;
+    padding-left: .6em;
+    font-size: 1.08rem;
+    font-weight: 700;
+    border-left: 3px solid $border-strong;
+
+    @media #{$mq-md} {
+      font-size: 1.2rem;
+    }
+  }
+
+  h4 {
+    margin-top: 1.35em;
+    font-weight: 700;
+    color: $text-header;
+  }
+
+  h5,
+  h6 {
+    color: $text-light;
+  }
+
+  .table-of-contents {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 1.15em 0 1.6em;
+    padding: .85em 1em .95em;
+    background: $surface;
+    border: 1px solid $border;
+    border-left: 1px solid $border !important;
+    border-radius: $radius-md;
+    box-shadow: none;
+
+    &::before {
+      content: "目次";
+      display: block;
+      margin: 0 0 .65em;
+      padding: 0 0 .5em;
+      border-bottom: 1px solid $border;
+      color: $text-header;
+      font-size: .95rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    ul,
+    ol {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
+    }
+
+    li ul,
+    li ol {
+      margin: .18em 0 .32em .65em;
+      padding-left: .65em;
+      border-left: 1px solid $border;
+    }
+
+    a {
+      display: block;
+      position: relative;
+      color: $text;
+      text-decoration: none;
+      line-height: 1.45;
+      padding: .36em .5em .36em .62em;
+      border-radius: 8px;
+      background: transparent;
+      transition: background-color .15s ease, color .15s ease;
+
+      &:hover {
+        color: $hover;
+        background: rgba($color-info, .11);
+      }
+
+      &:focus-visible {
+        outline: 2px solid rgba($color-info, .45);
+        outline-offset: 1px;
+        background: rgba($color-info, .12);
+      }
+    }
+  }
+
+  code {
+    font-size: .92em;
+    margin: 0 1px;
+    padding: .08em .34em;
+    color: $text;
+    background: $surface-2;
+    border: 1px solid $border;
+    border-radius: 6px;
+    word-break: break-word;
+  }
+
+  pre {
+    margin: 1.05em 0 1.25em;
+    padding: 12px 14px;
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: $radius-md;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: pre;
+    line-height: 1.5;
+    font-size: .88rem;
+
+    code {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      font-size: inherit;
+      line-height: inherit;
+      color: inherit;
+      white-space: pre;
+      word-break: normal;
+    }
+  }
+
+  table {
+    width: 100%;
+    min-width: 520px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 1em 0 1.25em;
+    color: $text;
+    background: transparent;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+
+    @media #{$mq-sm} {
+      min-width: 0;
+      white-space: normal;
+    }
+  }
+
+  th,
+  td {
+    border: 1px solid $border;
+    padding: .62em .78em;
+    vertical-align: top;
+    text-align: left;
+  }
+
+  thead th,
+  tr:first-child th {
+    background: $surface-2;
+    color: $text-header;
+    font-weight: 700;
+  }
+
+  tbody tr:nth-child(even) td {
+    background: rgba($surface-2, 0.45);
+  }
+
+  blockquote {
+    margin: 1.15em 0 1.25em;
+    padding: .9em 1em;
+    border: 1px solid $border;
+    border-left: 4px solid $color-info;
+    border-radius: 0 $radius-sm $radius-sm 0;
+    background: rgba($color-info, 0.08);
+    color: $text;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid $border;
+    margin: 2em 0;
+  }
+
+  @media (max-width: 767px) {
+    pre {
+      padding: 10px 12px;
+      border-radius: 10px;
+    }
+  }
+}
