@@ -1,20 +1,12 @@
-# Hatena-Blog-Theme-Boilerplate
+# Hatena-Blog-Theme-Ember-Notes
 
-Boilerplate は、はてなブログのデザインCSSカスタマイズの土台に適したデザインテーマです。
-
-はてなブログの必要最小限の見た目が調整されています。「オリジナルテーマの制作にチャレンジしたいけど、0から作るのが大変」という方は、このデザインテーマをもとにしてCSSを書くと比較的楽にテーマが作れます。
-
-*Boilerplateは自己責任でご利用ください。お問い合わせははてなブログのサポートフォームではなく、本リポジトリのIssueにお願いします。*
-
-デザインテーマの制作にあたっては下記ヘルプページも参考にしてください。
-
-- [デザインテーマ制作の手引き - はてなブログ ヘルプ](https://help.hatenablog.com/entry/theme/custom-theme)
+Ember Notes は、はてなブログのデザインCSSカスタマイズの土台に適したデザインテーマです。
 
 # CSSのダウンロード
 
-最新のバージョンから `boilerplate.css` をダウンロードしてください。
+最新のバージョンから `embernotes.css` をダウンロードしてください。
 
-- <https://github.com/hatena/Hatena-Blog-Theme-Boilerplate/releases>
+- <https://github.com/hatena/Hatena-Blog-Theme-Ember-Notes/releases>
 
 # セットアップ
 
@@ -27,8 +19,8 @@ SCSSで開発する場合は、下記の手順でリポジトリのcloneとモ�
 ## モジュールのインストール
 
 ``` console
-$ git clone https://github.com/hatena/Hatena-Blog-Theme-Boilerplate.git
-$ cd Hatena-Blog-Theme-Boilerplate
+$ git clone https://github.com/hatena/Hatena-Blog-Theme-Ember-Notes.git
+$ cd Hatena-Blog-Theme-Ember-Notes
 $ npm install
 ```
 
@@ -48,7 +40,7 @@ $ npm install
 3. 1.のブログの「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」を下記に置き換えて保存します。
     ``` html
     <script type="module" src="http://localhost:5173/@vite/client" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/boilerplate.scss" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/embernotes.scss" crossorigin="anonymous" />
     ```
 
 つづいて下記のコマンドで、開発サーバーを起動します。`BLOG_DOMAIN_NAME` の部分には、上で用意した動作確認に使うブログのドメイン名 (例: `example.hatenablog.com`) を入力してください。
@@ -76,19 +68,14 @@ $ npm run build
 # 構成
 
 ```
-boilerplate/
+embernotes/
 ┣┳ scss/
 ┃┗┳ lib/
-┃ ┗ boilerplate.scss
+┃ ┗ embernotes.scss
 ┗┳ build/
- ┗ boilerplate.css
+ ┗ embernotes.css
 ```
 
 # ライセンス
 
 このCSSおよびSCSSファイルはMITライセンスのもと自由に複製・再配布できます。 記事本文の書式やコメント欄のスタイルなど、必要な部分だけをコピーして使ってもかまいません。 このデザインテーマをもとにしたテーマの配布も自由です。
-
-# 過去のバージョン
-
-- <https://github.com/hatena/Hatena-Blog-Theme-Boilerplate-Less>
-  - BoilerplateのLessバージョンです。（開発終了）

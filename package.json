@@ -1,8 +1,8 @@
 {
-  "name": "hatena-blog-theme-boilerplate",
-  "version": "2.0.0",
-  "description": "Boilerplate for Hatena Blog theme",
-  "author": "Hatena Blog",
+  "name": "hatena-blog-theme-embernotes",
+  "version": "1.0.0",
+  "description": "Ember Notes for Hatena Blog theme",
+  "author": "yassan",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -13,6 +13,6 @@
     "autoprefixer": "^10.4.17",
     "normalize.css": "^8.0.1",
     "sass": "^1.71.1",
-    "vite": "^5.1.4"
+    "vite": "^7.3.1"
   }
 }
