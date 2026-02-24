@@ -40,6 +40,9 @@ $color-warning: #f1c40f;
 $color-error: #f15354;
 $color-disabled: #dee1e3;
 
+// 影・オーバーレイ用の“黒”プリミティブ（直書き排除のため）
+$c-ink: #000000;
+
 // ---------------------------------------------------------
 // Colors（役割ベース：DoD必須セット）
 // ---------------------------------------------------------
@@ -66,13 +69,19 @@ $c-link: $color-primary;
 $c-link-hover: darken($c-link, 8%);
 $c-link-visited: #4b5f97;
 
-// （将来用）フォーカス。現状は info 系を基準にするが、役割は focus に固定する
+// フォーカス（役割：focus）
 $c-focus: rgba($color-info, 0.45);
 $c-focus-bg: rgba($color-info, 0.10);
 
-// （将来用）画像上の文字（ヘッダ等）。直書き排除のために用意
-$c-on-image: #ffffff;
-$c-on-image-muted: rgba(255, 255, 255, 0.94);
+// 画像上の文字（ヘッダ等）
+$c-on-image: $c-surface;
+$c-on-image-muted: rgba($c-on-image, 0.94);
+
+// 画像上の視認性確保（直書き排除：影/暗幕をトークン化）
+$shadow-on-image-title: 0 1px 2px rgba($c-ink, 0.35);
+$shadow-on-image-sub: 0 1px 2px rgba($c-ink, 0.28);
+$cover-overlay-top: rgba($c-ink, 0.35);
+$cover-overlay-bottom: rgba($c-ink, 0.20);
 
 // Buttons / inputs（役割ベース）
 $c-btn-bg: $c-surface;

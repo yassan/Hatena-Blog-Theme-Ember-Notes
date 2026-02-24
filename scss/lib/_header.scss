@@ -7,7 +7,7 @@
 //
 // 方針
 // - 色の直書きを排除し、画像上テキストは $c-on-image / $c-on-image-muted に統一
-// - 既存DOM構造を前提（置換/大改造は禁止）
+// - 暗幕/影もトークン化して、header 側で rgba(0,0,0,...) を直書きしない
 // =========================================================
 
 header#blog-title {
@@ -20,11 +20,6 @@ header#blog-title {
   border: 1px solid $c-border;
 }
 
-/* cover image area
-   NOTE:
-   - Hatena標準/Boilerplate系では背景画像を header か inner に貼るケースがある
-   - ここでは “崩れない” を優先して、背景画像が存在する想定のレイヤを用意する
-*/
 #blog-title-inner {
   position: relative;
   padding: 0;
@@ -42,41 +37,31 @@ header#blog-title {
   }
 }
 
-/* 背景画像がある場合の暗幕（テキスト可読性担保）
-   - 強すぎると“装飾”になるため控えめにする
-*/
+/* 背景画像がある場合の暗幕（テキスト可読性担保：控えめ） */
 #blog-title-inner::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* 画像が無い場合でも破綻しないよう弱め */
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.35),
-    rgba(0, 0, 0, 0.20)
-  );
+  background: linear-gradient(to bottom, $cover-overlay-top, $cover-overlay-bottom);
   opacity: 0;
   transition: opacity .2s ease;
 }
 
-/* background-image が設定されているケースを想定し、暗幕を有効化
-   - `style` 属性やクラス付与は環境差があるため、代表的な条件だけ拾う
-*/
+/* header に背景が貼られるテーマ */
 header#blog-title[style*="background"],
 header#blog-title[style*="url("] {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
-  /* 画像上の文字として扱う */
   #blog-title-inner::before {
     opacity: 1;
   }
 }
 
-/* inner に背景が貼られるテーマもある */
+/* inner に背景が貼られるテーマ */
 #blog-title-inner[style*="background"],
 #blog-title-inner[style*="url("] {
   background-size: cover;
@@ -97,12 +82,8 @@ h1#title {
   font-weight: 800;
   line-height: 1.18;
   letter-spacing: 0.01em;
-
-  /* 直書き排除：画像上テキスト色 */
   color: $c-on-image;
-
-  /* 画像上の視認性を確保（控えめ） */
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  text-shadow: $shadow-on-image-title;
 
   font-size: 1.55rem;
 
@@ -128,11 +109,8 @@ h2#blog-description,
   font-family: $ff-base;
   font-weight: 500;
   line-height: 1.5;
-
-  /* 直書き排除：画像上サブテキスト */
   color: $c-on-image-muted;
-
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+  text-shadow: $shadow-on-image-sub;
 
   font-size: 0.95rem;
 
@@ -143,7 +121,6 @@ h2#blog-description,
 
 /* ---------------------------------------------------------
    When no cover image is used
-   - 色を通常トークンに戻す（背景が白などのときの可読性）
 --------------------------------------------------------- */
 header#blog-title:not([style*="background"]):not([style*="url("]) {
   h1#title {
@@ -162,13 +139,12 @@ header#blog-title:not([style*="background"]):not([style*="url("]) {
   }
 }
 
-/* inner に背景がある場合は “画像あり” とみなす */
+/* inner に背景がある場合は “画像あり” 扱い */
 header#blog-title:not([style*="background"]):not([style*="url("]) #blog-title-inner[style*="background"],
 header#blog-title:not([style*="background"]):not([style*="url("]) #blog-title-inner[style*="url("] {
-  /* 明示的に画像あり側へ */
-  h1#title { color: $c-on-image; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35); }
+  h1#title { color: $c-on-image; text-shadow: $shadow-on-image-title; }
   h2#blog-description,
-  #blog-description { color: $c-on-image-muted; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28); }
+  #blog-description { color: $c-on-image-muted; text-shadow: $shadow-on-image-sub; }
 }
 
 /* ---------------------------------------------------------

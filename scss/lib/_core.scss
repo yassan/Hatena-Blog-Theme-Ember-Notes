@@ -1,5 +1,7 @@
 // =========================================================
 // Ember Notes - Core
+// =========================================================
+//
 // Responsibility:
 // - Base layout skeleton
 // - 2-column responsive layout with >=70% content width on desktop
@@ -122,9 +124,6 @@ h2#blog-description,
 
 /* ---------------------------------------------------------
    Desktop / tablet: 2 columns
-   CRITICAL:
-   - Some Hatena themes may place header inside #content-inner.
-   - Use wrap and force header to occupy full row.
 --------------------------------------------------------- */
 @media #{$mq-sm} {
   #content-inner {
@@ -177,7 +176,6 @@ h2#blog-description,
 }
 
 @media #{$mq-lg} {
-  /* keep comfortable */
   #wrapper { max-width: $layout-container-lg; }
 }
 
@@ -194,7 +192,7 @@ h2#blog-description,
   box-sizing: border-box;
 
   @media #{$mq-md} {
-    padding: 28px 32px; // docs寄りに少し締める
+    padding: 28px 32px;
     border-radius: 10px;
   }
 }
@@ -377,7 +375,6 @@ input[type="submit"]:hover {
 /* ---------------------------------------------------------
    Mobile refinements
 --------------------------------------------------------- */
-/* 旧: 767px 直書き → トークン化（bp-sm=768px の直前まで） */
 @media (max-width: #{$bp-sm - 1px}) {
   #wrapper {
     padding-left: $sp-3;

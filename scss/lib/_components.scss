@@ -254,7 +254,6 @@
     margin: 2em 0;
   }
 
-  // 旧: 767px 直書き → トークン化（bp-sm=768px の直前まで）
   @media (max-width: #{$bp-sm - 1px}) {
     pre {
       padding: 10px 12px;
