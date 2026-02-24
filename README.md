@@ -4,7 +4,7 @@ Ember Notes は、はてなブログのデザインCSSカスタマイズの土�
 
 # CSSのダウンロード
 
-最新のバージョンから `embernotes.css` をダウンロードしてください。
+最新のバージョンから `ember-notes.css` をダウンロードしてください。
 
 - <https://github.com/hatena/Hatena-Blog-Theme-Ember-Notes/releases>
 
@@ -40,7 +40,7 @@ $ npm install
 3. 1.のブログの「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」を下記に置き換えて保存します。
     ``` html
     <script type="module" src="http://localhost:5173/@vite/client" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/embernotes.scss" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/ember-notes.scss" crossorigin="anonymous" />
     ```
 
 つづいて下記のコマンドで、開発サーバーを起動します。`BLOG_DOMAIN_NAME` の部分には、上で用意した動作確認に使うブログのドメイン名 (例: `example.hatenablog.com`) を入力してください。
@@ -59,7 +59,7 @@ $ npm start -- example.hatenablog.com
 
 ## コンパイル
 
-テーマの開発が完了したら、下記のコマンドでSCSSをコンパイルします。コンパイルの結果は `build/boilderplate.css` に出力されます。
+テーマの開発が完了したら、下記のコマンドでSCSSをコンパイルします。コンパイルの結果は `build/ember-notes.css` に出力されます。
 
 ``` console
 $ npm run build
@@ -68,12 +68,22 @@ $ npm run build
 # 構成
 
 ```
-embernotes/
-┣┳ scss/
-┃┗┳ lib/
-┃ ┗ embernotes.scss
-┗┳ build/
- ┗ embernotes.css
+ember-notes/
+   ├── assets/
+   │   └── images/
+   │       ├── header
+   │       └── source
+   ├── build/
+   │   └── ember-notes.css
+   ├── scss/
+   │   ├── ember-notes.scss
+   │   └── lib/
+   │       ├── _components.scss
+   │       ├── _core.scss
+   │       ├── _header.scss
+   │       └── _variable.scss
+   ├── server.js
+   └── vite.config.js
 ```
 
 # ライセンス
