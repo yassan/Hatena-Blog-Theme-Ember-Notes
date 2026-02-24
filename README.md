@@ -86,6 +86,12 @@ ember-notes/
    └── vite.config.js
 ```
 
-# ライセンス
+## License / Copyright
 
-このCSSおよびSCSSファイルはMITライセンスのもと自由に複製・再配布できます。 記事本文の書式やコメント欄のスタイルなど、必要な部分だけをコピーして使ってもかまいません。 このデザインテーマをもとにしたテーマの配布も自由です。
+This repository is based on a fork of Hatena's `Hatena-Blog-Theme-Boilerplate`.
+
+- Portions derived from the original boilerplate are subject to the original copyright
+  and license notices provided by Hatena.
+- Modifications and additions in this repository are Copyright (c) 2026 yassan.
+
+This project is distributed under the MIT License. See `LICENSE.md`.
