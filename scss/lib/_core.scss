@@ -5,6 +5,7 @@
 // - 2-column responsive layout with >=70% content width on desktop
 // - Base typography and module styling
 // - Font normalization (safe)
+//
 // NOTE:
 // - Header overlay styles are in _header.scss
 // - Article content UI is in _components.scss
@@ -14,17 +15,17 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: $background;
-  color: $text;
-  font-family: $font-family-base;
+  background: $c-bg;
+  color: $c-text;
+  font-family: $ff-base;
   line-height: 1.7;
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
 }
 
-a { color: $link; }
-a:hover { color: $hover; }
-a:visited { color: $link-visited; }
+a { color: $c-link; }
+a:hover { color: $c-link-hover; }
+a:visited { color: $c-link-visited; }
 
 img, svg, video, canvas {
   max-width: 100%;
@@ -38,14 +39,14 @@ img, svg, video, canvas {
   width: 100%;
   margin: 0;
   padding: 0;
-  background: $background;
-  color: $text;
+  background: $c-bg;
+  color: $c-text;
 }
 
 /* Boilerplate系の wrapper を想定 */
 #wrapper {
   width: 100%;
-  max-width: $container-lg;
+  max-width: $layout-container-lg;
   margin: 0 auto;
   padding: 0 $sp-4 $sp-10;
   box-sizing: border-box;
@@ -75,7 +76,7 @@ h1#title {
   margin: 0;
   font-size: 1.6rem;
   line-height: 1.25;
-  color: $text-header;
+  color: $c-heading;
 
   @media #{$mq-md} {
     font-size: 1.9rem;
@@ -85,7 +86,7 @@ h1#title {
 h2#blog-description,
 #blog-description {
   margin: $sp-2 0 0;
-  color: $text-light;
+  color: $c-muted;
   font-size: 0.95rem;
   line-height: 1.5;
 }
@@ -150,34 +151,34 @@ h2#blog-description,
 
   #box2 {
     order: 2;
-    flex: 0 0 $sidebar-min;
-    width: $sidebar-min;
+    flex: 0 0 $layout-sidebar-min;
+    width: $layout-sidebar-min;
     margin-top: 0;
   }
 }
 
-/* >=992px: guarantee main >=70% */
+/* >=992px: guarantee main >=70%（比率はトークンで固定） */
 @media #{$mq-md} {
   #content-inner {
     gap: $layout-gap-md;
   }
 
   #main {
-    flex: 0 1 calc(72% - (#{$layout-gap-md} / 2));
+    flex: 0 1 calc(#{$layout-main-pct} - (#{$layout-gap-md} / 2));
     min-width: 0;
   }
 
   #box2 {
-    flex: 0 0 calc(28% - (#{$layout-gap-md} / 2));
+    flex: 0 0 calc(#{$layout-sidebar-pct} - (#{$layout-gap-md} / 2));
     width: auto;
-    min-width: $sidebar-min;
-    max-width: $sidebar-max;
+    min-width: $layout-sidebar-min;
+    max-width: $layout-sidebar-max;
   }
 }
 
 @media #{$mq-lg} {
   /* keep comfortable */
-  #wrapper { max-width: $container-lg; }
+  #wrapper { max-width: $layout-container-lg; }
 }
 
 /* ---------------------------------------------------------
@@ -185,8 +186,8 @@ h2#blog-description,
 --------------------------------------------------------- */
 .entry,
 .archive-entry {
-  background: $surface;
-  border: 1px solid $border;
+  background: $c-surface;
+  border: 1px solid $c-border;
   border-radius: $radius-md;
   margin: 0 0 $sp-6;
   padding: $sp-5;
@@ -212,7 +213,7 @@ h2#blog-description,
   margin: 0;
   font-size: 1.4rem;
   line-height: 1.35;
-  color: $text-header;
+  color: $c-heading;
   font-weight: 700;
 
   @media #{$mq-md} {
@@ -225,7 +226,7 @@ h2#blog-description,
   }
 
   a:hover {
-    color: $hover;
+    color: $c-link-hover;
     text-decoration: underline;
     text-underline-offset: 0.14em;
   }
@@ -236,7 +237,7 @@ h2#blog-description,
 .breadcrumb,
 .entry-meta,
 .entry-header-meta {
-  color: $text-light;
+  color: $c-muted;
   font-size: 0.9rem;
   line-height: 1.5;
 }
@@ -255,7 +256,7 @@ h2#blog-description,
 .breadcrumb a:hover,
 .entry-meta a:hover,
 .entry-header-meta a:hover {
-  color: $hover;
+  color: $c-link-hover;
   text-decoration: underline;
 }
 
@@ -263,7 +264,7 @@ h2#blog-description,
    Entry content base (detail in _components.scss)
 --------------------------------------------------------- */
 .entry-content {
-  color: $text;
+  color: $c-text;
   font-size: 1rem;
   line-height: 1.9;
   word-break: normal;
@@ -286,8 +287,8 @@ h2#blog-description,
    Sidebar modules
 --------------------------------------------------------- */
 .hatena-module {
-  background: $surface;
-  border: 1px solid $border;
+  background: $c-surface;
+  border: 1px solid $c-border;
   border-radius: $radius-md;
   margin: 0 0 $sp-5;
   overflow: hidden;
@@ -300,27 +301,27 @@ h2#blog-description,
 .hatena-module-title {
   margin: 0;
   padding: $sp-4 $sp-4 $sp-3;
-  color: $text-header;
+  color: $c-heading;
   font-size: 0.95rem;
   font-weight: 700;
-  border-bottom: 1px solid $divider;
-  background: rgba($surface-2, 0.55);
+  border-bottom: 1px solid $c-divider;
+  background: rgba($c-surface-2, 0.55);
 }
 
 .hatena-module-body {
   padding: $sp-4;
-  color: $text;
+  color: $c-text;
   font-size: 0.94rem;
   line-height: 1.7;
 }
 
 .hatena-module-body a {
-  color: $link;
+  color: $c-link;
   text-decoration: none;
 }
 
 .hatena-module-body a:hover {
-  color: $hover;
+  color: $c-link-hover;
   text-decoration: underline;
 }
 
@@ -332,7 +333,7 @@ button,
 select,
 textarea {
   font: inherit;
-  font-family: $font-family-base;
+  font-family: $ff-base;
   color: inherit;
 }
 
@@ -342,24 +343,24 @@ textarea,
 select {
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid $border;
+  border: 1px solid $c-border;
   border-radius: 10px;
-  background: $surface;
+  background: $c-surface;
   padding: 0.55em 0.7em;
 }
 
 button,
 input[type="submit"] {
-  border: 1px solid $border;
+  border: 1px solid $c-border;
   border-radius: 10px;
-  background: $btn;
+  background: $c-btn-bg;
   padding: 0.5em 0.8em;
   cursor: pointer;
 }
 
 button:hover,
 input[type="submit"]:hover {
-  background: $btn-hover;
+  background: $c-btn-bg-hover;
 }
 
 /* ---------------------------------------------------------
@@ -368,15 +369,16 @@ input[type="submit"]:hover {
 .entry-footer {
   margin-top: $sp-5;
   padding-top: $sp-4;
-  border-top: 1px solid $divider;
-  color: $text-light;
+  border-top: 1px solid $c-divider;
+  color: $c-muted;
   font-size: 0.92rem;
 }
 
 /* ---------------------------------------------------------
    Mobile refinements
 --------------------------------------------------------- */
-@media (max-width: 767px) {
+/* 旧: 767px 直書き → トークン化（bp-sm=768px の直前まで） */
+@media (max-width: #{$bp-sm - 1px}) {
   #wrapper {
     padding-left: $sp-3;
     padding-right: $sp-3;
@@ -431,7 +433,7 @@ header#blog-title,
 #blog-title-content,
 h1#title,
 #blog-description {
-  font-family: $font-family-base;
+  font-family: $ff-base;
 }
 
 /* Keep monospaced font for code */
@@ -440,5 +442,5 @@ pre,
 kbd,
 samp,
 pre code {
-  font-family: $font-family-monospace !important;
+  font-family: $ff-mono !important;
 }

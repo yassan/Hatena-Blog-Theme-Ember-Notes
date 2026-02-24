@@ -1,16 +1,32 @@
 // =========================================================
 // Ember Notes - Variables
 // =========================================================
+//
+// 方針（重要）
+// - 以降の“正”の参照先は「役割ベース」トークン（$c- / $ff- / $layout- / $bp-）
+// - 既存変数（$background, $text, $link...）は互換のための alias として残す
+//   （参照の統一を進めつつ、既存SCSSを壊さないため）
+//
+// =========================================================
 
-// Fonts
-$font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI",
+// ---------------------------------------------------------
+// Fonts（役割ベース）
+// ---------------------------------------------------------
+
+// 本文・UIの基準フォント
+$ff-base: -apple-system, BlinkMacSystemFont, "Segoe UI",
   "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", Meiryo,
   "Helvetica Neue", Arial, sans-serif;
 
-$font-family-monospace: "SFMono-Regular", Consolas, "Liberation Mono",
+// コード・preのモノスペース
+$ff-mono: "SFMono-Regular", Consolas, "Liberation Mono",
   Menlo, Monaco, "Courier New", monospace;
 
-// Palette (based on provided image)
+// ---------------------------------------------------------
+// Palette（プリミティブ：必要に応じて残す）
+// ---------------------------------------------------------
+
+// ※既存のベースカラー（後方互換・補助用途）
 $color-primary: #0075a8;
 $color-secondary: #34495e;
 $color-light-grey: #ecf0f1;
@@ -24,44 +40,71 @@ $color-warning: #f1c40f;
 $color-error: #f15354;
 $color-disabled: #dee1e3;
 
-// Light theme tokens
-$background: #f7f9fa;
-$surface: #ffffff;
-$surface-2: #ecf0f1;
-$surface-3: #dee1e3;
+// ---------------------------------------------------------
+// Colors（役割ベース：DoD必須セット）
+// ---------------------------------------------------------
 
-$text: #313131;
-$text-light: #5f6c74;
-$text-subtle: #99a3a8;
-$text-header: #313131;
+// 背景/面
+$c-bg: #f7f9fa;
+$c-surface: #ffffff;
+$c-surface-2: #ecf0f1;
+$c-surface-3: #dee1e3;
 
-$link: $color-primary;
-$hover: darken($link, 8%);
-$link-visited: #4b5f97;
+// 文字
+$c-text: #313131;
+$c-muted: #5f6c74;
+$c-subtle: #99a3a8;
+$c-heading: #313131;
 
-$border: #dee1e3;
-$border-strong: #cfd6da;
-$divider: #e9edf0;
+// 罫線
+$c-border: #dee1e3;
+$c-border-strong: #cfd6da;
+$c-divider: #e9edf0;
 
-// Buttons / inputs
-$btn: $surface;
-$btn-hover: $surface-2;
+// リンク
+$c-link: $color-primary;
+$c-link-hover: darken($c-link, 8%);
+$c-link-visited: #4b5f97;
 
-// Layout
-$container-sm: 720px;
-$container-md: 1000px;
-$container-lg: 1240px;
+// （将来用）フォーカス。現状は info 系を基準にするが、役割は focus に固定する
+$c-focus: rgba($color-info, 0.45);
+$c-focus-bg: rgba($color-info, 0.10);
 
+// （将来用）画像上の文字（ヘッダ等）。直書き排除のために用意
+$c-on-image: #ffffff;
+$c-on-image-muted: rgba(255, 255, 255, 0.94);
+
+// Buttons / inputs（役割ベース）
+$c-btn-bg: $c-surface;
+$c-btn-bg-hover: $c-surface-2;
+
+// ---------------------------------------------------------
+// Layout（役割ベース）
+// ---------------------------------------------------------
+
+// コンテナ幅
+$layout-container-sm: 720px;
+$layout-container-md: 1000px;
+$layout-container-lg: 1240px;
+
+// ギャップ
 $layout-gap-sm: 20px;
 $layout-gap-md: 24px;
 
-// 70%+ guarantee strategy:
-// - Use ratio first on >=992px
-// - Keep reasonable min/max for sidebar
-$sidebar-min: 260px;
-$sidebar-max: 340px;
+// 2カラム比率（main >= 70% を担保する前提値）
+// - >=992px を想定（mq-md）
+// - 実際の幅は sidebar min/max でも補正される
+$layout-main-pct: 72%;
+$layout-sidebar-pct: 28%;
 
+// サイドバー幅のガード
+$layout-sidebar-min: 260px;
+$layout-sidebar-max: 340px;
+
+// ---------------------------------------------------------
 // Spacing
+// ---------------------------------------------------------
+
 $sp-1: 4px;
 $sp-2: 8px;
 $sp-3: 12px;
@@ -72,12 +115,67 @@ $sp-8: 32px;
 $sp-10: 40px;
 $sp-12: 48px;
 
+// ---------------------------------------------------------
 // Radius
+// ---------------------------------------------------------
+
 $radius-sm: 8px;
 $radius-md: 12px;
 
-// Media Queries (Boilerplate style)
-$mq-xs: "(max-width: 480px)";
-$mq-sm: "(min-width: 768px)";
-$mq-md: "(min-width: 992px)";
-$mq-lg: "(min-width: 1200px)";
+// ---------------------------------------------------------
+// Breakpoints（役割ベース）
+// ---------------------------------------------------------
+
+$bp-xs: 480px;
+$bp-sm: 768px;
+$bp-md: 992px;
+$bp-lg: 1200px;
+
+// Media Queries（Boilerplate 互換の文字列形式）
+$mq-xs: "(max-width: #{$bp-xs})";
+$mq-sm: "(min-width: #{$bp-sm})";
+$mq-md: "(min-width: #{$bp-md})";
+$mq-lg: "(min-width: #{$bp-lg})";
+
+// =========================================================
+// Legacy aliases（互換用：既存参照は当面維持）
+// =========================================================
+//
+// ここから下は「互換のためだけ」に残す。
+// 新規実装・改修は上の役割トークンを参照すること。
+// ---------------------------------------------------------
+
+// Fonts（旧名）
+$font-family-base: $ff-base;
+$font-family-monospace: $ff-mono;
+
+// Light theme tokens（旧名）
+$background: $c-bg;
+$surface: $c-surface;
+$surface-2: $c-surface-2;
+$surface-3: $c-surface-3;
+
+$text: $c-text;
+$text-light: $c-muted;
+$text-subtle: $c-subtle;
+$text-header: $c-heading;
+
+$link: $c-link;
+$hover: $c-link-hover;
+$link-visited: $c-link-visited;
+
+$border: $c-border;
+$border-strong: $c-border-strong;
+$divider: $c-divider;
+
+// Buttons / inputs（旧名）
+$btn: $c-btn-bg;
+$btn-hover: $c-btn-bg-hover;
+
+// Layout（旧名）
+$container-sm: $layout-container-sm;
+$container-md: $layout-container-md;
+$container-lg: $layout-container-lg;
+
+$sidebar-min: $layout-sidebar-min;
+$sidebar-max: $layout-sidebar-max;
